@@ -1,10 +1,11 @@
 package me.lightdream.uncrafting_table;
 
-import me.lightdream.uncrafting_table.Blocks.ModBlocks;
-import me.lightdream.uncrafting_table.Setup.ClientProxy;
-import me.lightdream.uncrafting_table.Setup.IProxy;
-import me.lightdream.uncrafting_table.Setup.ModSetup;
-import me.lightdream.uncrafting_table.Setup.ServerProxy;
+import me.lightdream.uncrafting_table.blocks.ModBlocks;
+import me.lightdream.uncrafting_table.items.PortableUncraftingTable;
+import me.lightdream.uncrafting_table.setup.ClientProxy;
+import me.lightdream.uncrafting_table.setup.IProxy;
+import me.lightdream.uncrafting_table.setup.ModSetup;
+import me.lightdream.uncrafting_table.setup.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -17,7 +18,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.system.CallbackI;
 
 @Mod("uncrafting_table")
 public class UncraftingTable {
@@ -44,7 +44,7 @@ public class UncraftingTable {
     public static class RegistryEvents {
         @SubscribeEvent
         public static void onBlockRegistry(final RegistryEvent.Register<Block> event) {
-            event.getRegistry().register(new me.lightdream.uncrafting_table.Blocks.UncraftingTable());
+            event.getRegistry().register(new me.lightdream.uncrafting_table.blocks.UncraftingTable());
         }
 
         @SubscribeEvent
@@ -52,10 +52,12 @@ public class UncraftingTable {
             Item.Properties properties = new Item.Properties()
                                             .group(setup.itemGroup);
 
+            //Items
+            event.getRegistry().register(new PortableUncraftingTable());
+
+            //Block Items
             event.getRegistry().register(new BlockItem(ModBlocks.UNCRAFTING_TABLE,properties).setRegistryName("uncrafting_table"));
         }
-
-
     }
 
 }

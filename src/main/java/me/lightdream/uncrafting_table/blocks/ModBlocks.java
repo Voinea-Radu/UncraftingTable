@@ -1,4 +1,4 @@
-package me.lightdream.uncrafting_table.Blocks;
+package me.lightdream.uncrafting_table.blocks;
 
 import net.minecraftforge.registries.ObjectHolder;
 

@@ -1,6 +1,6 @@
-package me.lightdream.uncrafting_table.Setup;
+package me.lightdream.uncrafting_table.setup;
 
-import me.lightdream.uncrafting_table.Blocks.ModBlocks;
+import me.lightdream.uncrafting_table.blocks.ModBlocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 

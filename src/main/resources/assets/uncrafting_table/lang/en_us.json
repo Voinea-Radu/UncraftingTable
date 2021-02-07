@@ -1,5 +1,7 @@
 {
   "block.uncrafting_table.uncrafting_table": "Uncrafting Table",
 
+  "item.uncrafting_table.portable_uncrafting_table": "Portable Uncrafting Table",
+
   "itemGroup.uncrafting_table": "Uncrafting Table Mod"
 }

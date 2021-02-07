@@ -1,4 +1,4 @@
-package me.lightdream.uncrafting_table.Setup;
+package me.lightdream.uncrafting_table.setup;
 
 import net.minecraft.world.World;
 
