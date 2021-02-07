@@ -3,6 +3,7 @@ package me.lightdream.uncrafting_table;
 import me.lightdream.uncrafting_table.Blocks.ModBlocks;
 import me.lightdream.uncrafting_table.Setup.ClientProxy;
 import me.lightdream.uncrafting_table.Setup.IProxy;
+import me.lightdream.uncrafting_table.Setup.ModSetup;
 import me.lightdream.uncrafting_table.Setup.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -16,11 +17,14 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.system.CallbackI;
 
 @Mod("uncrafting_table")
 public class UncraftingTable {
 
     public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+
+    public static ModSetup setup = new ModSetup();
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -32,7 +36,8 @@ public class UncraftingTable {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-
+        setup.init();
+        proxy.init();
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -44,7 +49,10 @@ public class UncraftingTable {
 
         @SubscribeEvent
         public static void onItemRegistry(final RegistryEvent.Register<Item> event) {
-            event.getRegistry().register(new BlockItem(ModBlocks.UNCRAFTING_TABLE, new Item.Properties()).setRegistryName("uncrafting_table"));
+            Item.Properties properties = new Item.Properties()
+                                            .group(setup.itemGroup);
+
+            event.getRegistry().register(new BlockItem(ModBlocks.UNCRAFTING_TABLE,properties).setRegistryName("uncrafting_table"));
         }
 
 
