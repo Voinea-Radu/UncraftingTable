@@ -23,14 +23,14 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static me.lightdream.uncrafting_table.blocks.ModBlocks.POWER_GENERATOR_TILE;
+import static me.lightdream.uncrafting_table.blocks.ModBlocks.UNCRAFTING_TABLE_TILE;
 
 public class UncraftingTableTile extends TileEntity implements ITickableTileEntity, INamedContainerProvider {
 
-    //private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
+    private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
 
     public UncraftingTableTile() {
-        super(POWER_GENERATOR_TILE);
+        super(UNCRAFTING_TABLE_TILE);
     }
 
     @Override
@@ -38,13 +38,13 @@ public class UncraftingTableTile extends TileEntity implements ITickableTileEnti
 
     }
 
-    /*
     @Override
     public void read(BlockState state, CompoundNBT tag) {
         CompoundNBT invTag = tag.getCompound("inv");
         handler.ifPresent(h -> ((INBTSerializable<CompoundNBT>)h).deserializeNBT(invTag));
         super.read(state, tag);
     }
+
 
     @Override
     public CompoundNBT write(CompoundNBT tag) {
@@ -67,23 +67,24 @@ public class UncraftingTableTile extends TileEntity implements ITickableTileEnti
 
     public IItemHandler createHandler() {
         return new ItemStackHandler(1) {
-            @Override
-            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return stack.getStack().getItem() == Items.COAL;
-            }
+            //@Override
+            //public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+            //    return stack.getStack().getItem() == Items.COAL;
+            //}
 
             @Nonnull
             @Override
             public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
 
-                if (stack.getItem() != Items.COAL)
-                    return stack;
+                //if (stack.getItem() != Items.COAL)
+                //    return stack;
 
                 return super.insertItem(slot, stack, simulate);
             }
         };
     }
-    */
+
+
 
     @Override
     public ITextComponent getDisplayName() {
@@ -93,6 +94,6 @@ public class UncraftingTableTile extends TileEntity implements ITickableTileEnti
     @Nullable
     @Override
     public Container createMenu(int id, PlayerInventory inventory, PlayerEntity entity) {
-        return new PowerGeneratorContainer(id, world, pos, inventory, entity);
+        return new UncraftingTableContainer(id, world, pos, inventory, entity);
     }
 }

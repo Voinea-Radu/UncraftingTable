@@ -45,7 +45,7 @@ public class UncraftingTable extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new PowerGeneratorTile();
+        return new UncraftingTableTile();
     }
 
     @Override

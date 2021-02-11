@@ -9,10 +9,10 @@ public class ModBlocks {
     @ObjectHolder("uncrafting_table:uncrafting_table")
     public static UncraftingTable UNCRAFTING_TABLE;
 
-    @ObjectHolder("uncrafting_table:power_generator")
+    @ObjectHolder("uncrafting_table:uncrafting_table")
     public static TileEntityType<UncraftingTableTile> UNCRAFTING_TABLE_TILE;
 
-    @ObjectHolder("uncrafting_table:power_generator")
+    @ObjectHolder("uncrafting_table:uncrafting_table")
     public static ContainerType<UncraftingTableContainer> UNCRAFTING_TABLE_CONTAINER;
 
     @ObjectHolder("uncrafting_table:power_generator")

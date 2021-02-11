@@ -12,7 +12,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
-import static me.lightdream.uncrafting_table.blocks.ModBlocks.POWER_GENERATOR_CONTAINER;
+import static me.lightdream.uncrafting_table.blocks.ModBlocks.UNCRAFTING_TABLE_CONTAINER;
 
 public class UncraftingTableContainer extends Container {
 
@@ -21,7 +21,7 @@ public class UncraftingTableContainer extends Container {
     private IItemHandler playerInventory;
 
     public UncraftingTableContainer(int id, World world, BlockPos pos, PlayerInventory inventory, PlayerEntity playerEntity) {
-        super(POWER_GENERATOR_CONTAINER, id);
+        super(UNCRAFTING_TABLE_CONTAINER, id);
         tileEntity = world.getTileEntity(pos);
         this.playerEntity = playerEntity;
         this.playerInventory = new InvWrapper(playerEntity.inventory);
@@ -35,7 +35,7 @@ public class UncraftingTableContainer extends Container {
 
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
-        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerEntity, ModBlocks.POWER_GENERATOR);
+        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerEntity, ModBlocks.UNCRAFTING_TABLE);
     }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx){
@@ -56,9 +56,9 @@ public class UncraftingTableContainer extends Container {
     }
 
     private void layoutPlayerInventorySlots(int leftCol, int topRow){
-        addSlotBox(playerInventory,9,leftCol,topRow,9,18,3,18);
+        addSlotBox(playerInventory,9,leftCol, topRow,9,18,3,18);
         topRow += 58;
-        addSlotRange(playerInventory,0,leftCol,topRow,9,18);
+        addSlotRange(playerInventory,0,leftCol, topRow,9,18);
     }
 
 }
