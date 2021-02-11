@@ -1,4 +1,4 @@
-package me.lightdream.uncrafting_table.blocks;
+package me.lightdream.uncrafting_table.blocks.PowerGenerator;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,14 +23,16 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static me.lightdream.uncrafting_table.blocks.ModBlocks.UNCRAFTING_TABLE_TILE;
+import java.util.Objects;
 
-public class UncraftingTableTile extends TileEntity implements ITickableTileEntity, INamedContainerProvider {
+import static me.lightdream.uncrafting_table.blocks.ModBlocks.POWER_GENERATOR_TILE;
 
-    private LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
+public class PowerGeneratorTile extends TileEntity implements ITickableTileEntity, INamedContainerProvider {
 
-    public UncraftingTableTile() {
-        super(UNCRAFTING_TABLE_TILE);
+    private final LazyOptional<IItemHandler> handler = LazyOptional.of(this::createHandler);
+
+    public PowerGeneratorTile() {
+        super(POWER_GENERATOR_TILE);
     }
 
     @Override
@@ -39,15 +41,15 @@ public class UncraftingTableTile extends TileEntity implements ITickableTileEnti
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT tag) {
+    public void read(@Nonnull BlockState state, CompoundNBT tag) {
         CompoundNBT invTag = tag.getCompound("inv");
         handler.ifPresent(h -> ((INBTSerializable<CompoundNBT>)h).deserializeNBT(invTag));
         super.read(state, tag);
     }
 
-
+    @Nonnull
     @Override
-    public CompoundNBT write(CompoundNBT tag) {
+    public CompoundNBT write(@Nonnull CompoundNBT tag) {
         handler.ifPresent(h -> {
                     CompoundNBT compound = ((INBTSerializable<CompoundNBT>) h).serializeNBT();
                     tag.put("inv", compound);
@@ -59,41 +61,43 @@ public class UncraftingTableTile extends TileEntity implements ITickableTileEnti
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
 
-        if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+        if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return handler.cast();
+        }
 
         return super.getCapability(cap, side);
     }
 
+    @Nonnull
     public IItemHandler createHandler() {
         return new ItemStackHandler(1) {
-            //@Override
-            //public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-            //    return stack.getStack().getItem() == Items.COAL;
-            //}
+            @Override
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                return stack.getStack().getItem() == Items.COAL;
+            }
 
             @Nonnull
             @Override
             public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
 
-                //if (stack.getItem() != Items.COAL)
-                //    return stack;
+                if (stack.getItem() != Items.COAL)
+                    return stack;
 
                 return super.insertItem(slot, stack, simulate);
             }
         };
     }
 
-
-
+    @Nonnull
     @Override
     public ITextComponent getDisplayName() {
-        return new StringTextComponent(getType().getRegistryName().getPath());
+        return new StringTextComponent(Objects.requireNonNull(getType().getRegistryName()).getPath());
     }
 
     @Nullable
     @Override
-    public Container createMenu(int id, PlayerInventory inventory, PlayerEntity entity) {
-        return new UncraftingTableContainer(id, world, pos, inventory, entity);
+    public Container createMenu(int id, @Nonnull PlayerInventory inventory, @Nonnull PlayerEntity entity) {
+        assert world != null;
+        return new PowerGeneratorContainer(id, world, pos, entity);
     }
 }

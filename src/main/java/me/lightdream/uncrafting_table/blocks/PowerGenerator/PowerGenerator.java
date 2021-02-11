@@ -1,4 +1,4 @@
-package me.lightdream.uncrafting_table.blocks;
+package me.lightdream.uncrafting_table.blocks.PowerGenerator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class PowerGenerator extends Block {
@@ -50,7 +51,7 @@ public class PowerGenerator extends Block {
     }
 
     @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack){
+    public void onBlockPlacedBy(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nullable LivingEntity entity, @Nonnull ItemStack stack){
         if(entity!=null)
             world.setBlockState(pos, state.with(BlockStateProperties.FACING, getFacingFromEntity(pos,entity)));
     }
@@ -64,8 +65,10 @@ public class PowerGenerator extends Block {
         builder.add(BlockStateProperties.FACING);
     }
 
+    @Nonnull
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    //TODO Change the deprecated use
+    public ActionResultType onBlockActivated(@Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit) {
         if(!worldIn.isRemote){
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if(tileEntity instanceof INamedContainerProvider)

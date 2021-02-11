@@ -1,8 +1,8 @@
 package me.lightdream.uncrafting_table.setup;
 
 import me.lightdream.uncrafting_table.blocks.ModBlocks;
-import me.lightdream.uncrafting_table.blocks.PowerGeneratorScreen;
-import me.lightdream.uncrafting_table.blocks.UncraftingTableScreen;
+import me.lightdream.uncrafting_table.blocks.PowerGenerator.PowerGeneratorScreen;
+import me.lightdream.uncrafting_table.blocks.UncraftingTable.UncraftingTableScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.entity.player.PlayerEntity;

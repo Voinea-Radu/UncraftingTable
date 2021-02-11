@@ -1,9 +1,8 @@
-package me.lightdream.uncrafting_table.blocks;
+package me.lightdream.uncrafting_table.blocks.PowerGenerator;
 
+import me.lightdream.uncrafting_table.blocks.ModBlocks;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.math.BlockPos;
@@ -13,32 +12,33 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
+
+import java.util.Objects;
 
 import static me.lightdream.uncrafting_table.blocks.ModBlocks.POWER_GENERATOR_CONTAINER;
 
 public class PowerGeneratorContainer extends Container {
 
-    private TileEntity tileEntity;
-    private PlayerEntity playerEntity;
-    private IItemHandler playerInventory;
+    private final TileEntity tileEntity;
+    private final PlayerEntity playerEntity;
+    private final IItemHandler playerInventory;
 
-    public PowerGeneratorContainer(int id, World world, BlockPos pos, PlayerInventory inventory, PlayerEntity playerEntity) {
+    public PowerGeneratorContainer(int id, World world, BlockPos pos, PlayerEntity playerEntity) {
         super(POWER_GENERATOR_CONTAINER, id);
         tileEntity = world.getTileEntity(pos);
         this.playerEntity = playerEntity;
         this.playerInventory = new InvWrapper(playerEntity.inventory);
 
-        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-            addSlot(new SlotItemHandler(h, 0, 82, 24));
-        });
+        assert tileEntity != null;
+        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> addSlot(new SlotItemHandler(h, 0, 82, 24)));
 
         layoutPlayerInventorySlots(10,70);
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
-        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerEntity, ModBlocks.POWER_GENERATOR);
+    public boolean canInteractWith(@Nonnull PlayerEntity playerIn) {
+        return isWithinUsableDistance(IWorldPosCallable.of(Objects.requireNonNull(tileEntity.getWorld()), tileEntity.getPos()), playerEntity, ModBlocks.POWER_GENERATOR);
     }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx){
@@ -50,12 +50,12 @@ public class PowerGeneratorContainer extends Container {
         return index;
     }
 
-    private int addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int dx, int verAmount, int dy){
+    private void addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int dx, int verAmount, int dy){
         for(int j=0;j<verAmount;j++){
             index = addSlotRange(handler, index, x, y, horAmount, dx);
             y += dy;
         }
-        return index;
+        //return index;
     }
 
     private void layoutPlayerInventorySlots(int leftCol, int topRow){
