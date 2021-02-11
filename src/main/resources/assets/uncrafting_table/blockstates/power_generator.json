@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "uncrafting_table:block/power_generator"
+    },
+    "facing=south": {
+      "model": "uncrafting_table:block/power_generator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "uncrafting_table:block/power_generator",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "uncrafting_table:block/power_generator",
+      "y": 90
+    },
+    "facing=up": {
+      "model": "uncrafting_table:block/power_generator",
+      "x": -90
+    },
+    "facing=down": {
+      "model": "uncrafting_table:block/power_generator",
+      "x": 90
+    }
+  }
+}

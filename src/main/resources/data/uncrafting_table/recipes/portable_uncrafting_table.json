@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  U",
+    " S ",
+    "S  "
+  ],
+  "key": {
+    "U": {
+      "item": "uncrafting_table:uncrafting_table"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "uncrafting_table:portable_uncrafting_table"
+  }
+}

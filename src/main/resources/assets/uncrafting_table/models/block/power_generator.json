@@ -1,0 +1,13 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures":
+  {
+    "particle": "uncrafting_table:block/power_generator_side",
+    "north": "uncrafting_table:block/power_generator_front",
+    "south": "uncrafting_table:block/power_generator_back",
+    "east": "uncrafting_table:block/power_generator_side",
+    "west": "uncrafting_table:block/power_generator_side",
+    "up": "uncrafting_table:block/power_generator_side",
+    "down": "uncrafting_table:block/power_generator_side"
+  }
+}
